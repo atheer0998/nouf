@@ -916,15 +916,9 @@
     <!-- Details Section -->
     <section class="content-section" id="details">
         <div class="glass-card" style="position: relative; overflow: hidden;">
-            <!-- Guest Welcome Banner -->
-            <div class="guest-welcome fade-in" id="guest-welcome" style="display:none;">
-                <p class="guest-name" id="welcome-name"></p>
-                <p class="guest-allowance" id="welcome-allowance"></p>
-            </div>
-
             <div class="fade-in">
-                <h2 class="section-title">تفاصيل الملكة</h2>
-                <p class="section-subtitle">يسعدنا دعوتكم لمشاركتنا فرحتنا</p>
+                <h2 class="section-title" id="details-title">تفاصيل الملكة</h2>
+                <p class="section-subtitle" id="details-subtitle">يسعدنا دعوتكم لمشاركتنا فرحتنا</p>
             </div>
 
             <div class="event-info-row fade-in">
@@ -1087,10 +1081,9 @@
             // Hide verify section
             document.getElementById('verify-section').style.display = 'none';
 
-            // Set guest welcome banner
-            const welcomeEl = document.getElementById('guest-welcome');
-            welcomeEl.style.display = 'block';
-            document.getElementById('welcome-name').textContent = 'أهلاً ' + currentGuest.name;
+            // Set personalized details title
+            document.getElementById('details-title').textContent = 'أهلاً ' + currentGuest.name;
+            document.getElementById('details-subtitle').textContent = 'يسعدنا دعوتكم لمشاركتنا فرحتنا';
 
             // Populate guest count dropdown
             const countGroup = document.getElementById('guest-count-group');
