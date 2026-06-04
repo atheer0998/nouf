@@ -125,7 +125,7 @@
 
         .hero-dua {
             font-family: 'Decotype Thuluth', serif;
-            font-size: clamp(0.9rem, 2.2vw, 1.4rem);
+            font-size: clamp(1.4rem, 4.5vw, 2.4rem);
             color: var(--gold-light);
             font-weight: normal;
             margin-top: 2rem;
@@ -662,13 +662,160 @@
                 padding: 2rem 1.2rem;
             }
         }
+
+        /* Guest Verification Flow */
+        .phone-form {
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.2s forwards;
+        }
+
+        .phone-input-wrapper {
+            display: flex;
+            gap: 0.6rem;
+            max-width: 340px;
+            margin: 0 auto;
+            direction: ltr;
+        }
+
+        .phone-input-wrapper input {
+            flex: 1;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50px;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 1rem;
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            text-align: center;
+            direction: ltr;
+            letter-spacing: 1px;
+        }
+
+        .phone-input-wrapper input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        .phone-input-wrapper input:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: 0 0 0 3px rgba(212, 184, 150, 0.15);
+        }
+
+        .phone-submit {
+            padding: 0.9rem 1.5rem;
+            background: linear-gradient(135deg, #6B1E3A, #4A1228);
+            color: var(--text-light);
+            border: none;
+            border-radius: 50px;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .phone-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .phone-error {
+            color: #ff9999;
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+            display: none;
+        }
+
+        .phone-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Guest welcome banner */
+        .guest-welcome {
+            text-align: center;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .guest-welcome .guest-name {
+            font-family: 'El Messiri', sans-serif;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            margin-bottom: 0.3rem;
+        }
+
+        .guest-welcome .guest-allowance {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Hidden state for page 2 */
+        #page2 {
+            display: none;
+        }
+
+        #page2.visible {
+            display: block;
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        /* Nav hidden initially */
+        nav.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        nav {
+            transition: all 0.4s ease, opacity 0.5s ease;
+        }
+
+        /* Guest count selector in RSVP */
+        .guest-count-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        .guest-count-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-cream);
+            font-weight: 500;
+        }
+
+        .guest-count-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.08);
+            direction: rtl;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .guest-count-group select:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: 0 0 0 3px rgba(212, 184, 150, 0.15);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
-    <nav id="navbar">
-        <a href="#hero">الرئيسية</a>
+    <!-- Navigation (hidden until verified) -->
+    <nav id="navbar" class="hidden">
         <a href="#countdown">العد التنازلي</a>
         <a href="#details">التفاصيل</a>
         <a href="#rsvp">تأكيد الحضور</a>
@@ -701,6 +848,26 @@
             <span></span>
         </div>
     </section>
+
+    <!-- Phone Verification Section (below hero) -->
+    <section class="content-section" id="verify-section">
+        <div class="glass-card">
+            <div class="phone-form" id="phone-form" style="opacity:1; animation:none;">
+                <h2 class="section-title" style="margin-bottom: 0.3rem;">تسجيل الدخول</h2>
+                <p class="phone-label">أدخل رقم الجوال المسجل للدخول</p>
+                <form onsubmit="verifyGuest(event)">
+                    <div class="phone-input-wrapper">
+                        <button type="submit" class="phone-submit">دخول</button>
+                        <input type="tel" id="phone-input" placeholder="05XXXXXXXX" maxlength="10" required>
+                    </div>
+                </form>
+                <p class="phone-error" id="phone-error">عذراً، الرقم غير مسجل في قائمة الضيوف</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAGE 2: Only visible after phone verification ============ -->
+    <div id="page2">
 
     <!-- Flower Divider -->
     <div class="section-divider">
@@ -749,6 +916,12 @@
     <!-- Details Section -->
     <section class="content-section" id="details">
         <div class="glass-card" style="position: relative; overflow: hidden;">
+            <!-- Guest Welcome Banner -->
+            <div class="guest-welcome fade-in" id="guest-welcome" style="display:none;">
+                <p class="guest-name" id="welcome-name"></p>
+                <p class="guest-allowance" id="welcome-allowance"></p>
+            </div>
+
             <div class="fade-in">
                 <h2 class="section-title">تفاصيل الملكة</h2>
                 <p class="section-subtitle">يسعدنا دعوتكم لمشاركتنا فرحتنا</p>
@@ -831,6 +1004,13 @@
                     </div>
                 </div>
 
+                <div class="guest-count-group" id="guest-count-group" style="display:none;">
+                    <label for="guest-count">عدد المرافقين</label>
+                    <select id="guest-count">
+                        <!-- Options populated dynamically based on guest allowance -->
+                    </select>
+                </div>
+
                 <button type="submit" class="submit-btn">إرسال التأكيد</button>
             </form>
 
@@ -849,6 +1029,8 @@
         </div>
     </section>
 
+    </div><!-- end #page2 -->
+
     <!-- Footer -->
     <footer>
         <div class="ornament" style="opacity: 1; animation: none;">
@@ -861,6 +1043,90 @@
     </footer>
 
     <script>
+        // ==================== GUEST LIST ====================
+        // Add guests here: phone number → { name, allowedGuests }
+        const GUEST_LIST = {
+            '0501234567': { name: 'محمد أحمد', allowedGuests: 3 },
+            '0559876543': { name: 'سارة خالد', allowedGuests: 2 },
+            '0512345678': { name: 'فاطمة علي', allowedGuests: 1 },
+            // أضف الضيوف هنا...
+        };
+        // ====================================================
+
+        let currentGuest = null;
+
+        function verifyGuest(e) {
+            e.preventDefault();
+            const phone = document.getElementById('phone-input').value.trim();
+            const errorEl = document.getElementById('phone-error');
+
+            // Normalize: remove spaces, dashes
+            const normalized = phone.replace(/[\s\-]/g, '');
+
+            if (GUEST_LIST[normalized]) {
+                currentGuest = { phone: normalized, ...GUEST_LIST[normalized] };
+                showPage2();
+                errorEl.style.display = 'none';
+            } else {
+                errorEl.style.display = 'block';
+            }
+        }
+
+        function showPage2() {
+            // Show nav
+            document.getElementById('navbar').classList.remove('hidden');
+
+            // Show page 2
+            const page2 = document.getElementById('page2');
+            page2.style.display = 'block';
+            setTimeout(() => page2.classList.add('visible'), 50);
+
+            // Hide verify section
+            document.getElementById('verify-section').style.display = 'none';
+
+            // Set guest welcome banner
+            const welcomeEl = document.getElementById('guest-welcome');
+            welcomeEl.style.display = 'block';
+            document.getElementById('welcome-name').textContent = 'أهلاً ' + currentGuest.name;
+            if (currentGuest.allowedGuests > 0) {
+                document.getElementById('welcome-allowance').textContent = 'يمكنك اصطحاب ' + currentGuest.allowedGuests + ' أشخاص';
+            } else {
+                document.getElementById('welcome-allowance').textContent = 'الدعوة شخصية';
+            }
+
+            // Populate guest count dropdown
+            const countGroup = document.getElementById('guest-count-group');
+            const countSelect = document.getElementById('guest-count');
+            if (currentGuest.allowedGuests > 0) {
+                countSelect.innerHTML = '';
+                for (let i = 0; i <= currentGuest.allowedGuests; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.textContent = i === 0 ? 'بدون مرافقين' : i + (i === 1 ? ' شخص' : ' أشخاص');
+                    countSelect.appendChild(opt);
+                }
+            }
+
+            // Show guest count when "attending yes" is selected
+            document.getElementById('attending-yes').addEventListener('change', () => {
+                if (currentGuest.allowedGuests > 0) countGroup.style.display = 'block';
+            });
+            document.getElementById('attending-no').addEventListener('change', () => {
+                countGroup.style.display = 'none';
+            });
+
+            // Auto-fill name in RSVP
+            document.getElementById('name').value = currentGuest.name;
+
+            // Smooth scroll to countdown
+            setTimeout(() => {
+                document.getElementById('countdown').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+
+            // Re-observe fade-in elements in page2
+            document.querySelectorAll('#page2 .fade-in').forEach(el => observer.observe(el));
+        }
+
         // Countdown Timer
         const weddingDate = new Date('2026-07-25T20:00:00').getTime();
 
@@ -965,10 +1231,14 @@
             const name = document.getElementById('name').value;
             const attending = document.querySelector('input[name="attending"]:checked').value;
 
+            const guestCount = attending === 'yes' ? (document.getElementById('guest-count').value || 0) : 0;
+
             const responses = getRSVPData();
             responses.push({
                 name,
+                phone: currentGuest ? currentGuest.phone : '',
                 attending: attending === 'yes' ? 'سأحضر' : 'أعتذر',
+                guestCount: Number(guestCount),
                 timestamp: new Date().toLocaleString('ar-SA')
             });
             localStorage.setItem('rsvp_responses', JSON.stringify(responses));
