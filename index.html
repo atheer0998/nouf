@@ -1091,11 +1091,6 @@
             const welcomeEl = document.getElementById('guest-welcome');
             welcomeEl.style.display = 'block';
             document.getElementById('welcome-name').textContent = 'أهلاً ' + currentGuest.name;
-            if (currentGuest.allowedGuests > 0) {
-                document.getElementById('welcome-allowance').textContent = 'يمكنك اصطحاب ' + currentGuest.allowedGuests + ' أشخاص';
-            } else {
-                document.getElementById('welcome-allowance').textContent = 'الدعوة شخصية';
-            }
 
             // Populate guest count dropdown
             const countGroup = document.getElementById('guest-count-group');
