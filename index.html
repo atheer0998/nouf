@@ -20,8 +20,7 @@
     <meta name="twitter:image" content="https://noufandabdullah.com/og-image.png">
     <meta name="description" content="بمشاعر مليئة بالفرح والسعادة نتشرف بدعوتكم لحضور عقد قران نوف وعبدالله">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- SheetJS loaded only when admin export is needed -->
-    <!-- <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script> -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <style>
         @font-face {
             font-family: 'Decotype Thuluth';
@@ -109,8 +108,9 @@
             text-align: center;
             padding: 2rem;
             position: relative;
-            background: url('herobg.jpeg') center center / cover no-repeat;
+            background: url('fullbg.jpeg') center center / cover no-repeat;
             background-color: #C4A0A8;
+            overflow: hidden;
         }
 
         @media (max-width: 768px) {
@@ -129,6 +129,7 @@
             background: rgba(0, 0, 0, 0.1);
             pointer-events: none;
         }
+
 
         .hero-content {
             position: relative;
@@ -231,6 +232,21 @@
             margin-bottom: 0;
             opacity: 0;
             animation: fadeUp 1s ease 0.7s forwards;
+        }
+
+        .hero-flowers-wrap {
+            position: relative;
+            z-index: 2;
+            margin-top: -120px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero-flowers-img {
+            display: block;
+            width: 160%;
+            max-width: none;
+            margin: 0 -30%;
         }
 
         /* Decorative positioned elements */
@@ -918,7 +934,12 @@
         <div class="scroll-indicator">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
+
     </section>
+
+    <div class="hero-flowers-wrap">
+        <img src="element8.png" class="hero-flowers-img" alt="">
+    </div>
 
     <!-- Phone Verification Section (below hero) -->
     <section class="content-section" id="verify-section">
@@ -996,8 +1017,8 @@
             <div class="event-info-row fade-in">
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
-                    <span class="event-info-label">الجمعة</span>
-                    <span class="event-info-sub">١٧ . ٧ . ٢٠٢٦</span>
+                    <span class="event-info-label">الخميس</span>
+                    <span class="event-info-sub">١٦ . ٧ . ٢٠٢٦</span>
                 </div>
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -1012,25 +1033,25 @@
             </div>
 
             <div class="map-container fade-in">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3576.5826949491916!2d50.22170741192334!3d26.30762498573436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49e9a50968d01d%3A0x2bd0cd968fddc405!2zRWZmaWNpZW5jeSBDZW50ZXIgfCDZhdix2YPYsiDYp9mE2YPZgdin2KHYqQ!5e0!3m2!1sen!2ssa!4v1779694162427!5m2!1sen!2ssa" width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1844194.3764426683!2d46.98453917327027!3d25.473607371695756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e361db597d487a3%3A0x29aaf1a8a2e8d04!2z2YXZhtiq2KzYuSDZiNmH2Kw!5e0!3m2!1sen!2ssa!4v1782030133467!5m2!1sen!2ssa" width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <!-- Action Buttons -->
             <div class="action-buttons fade-in">
                 <!-- Google Maps Navigation -->
-                <a href="https://maps.google.com/?q=Efficiency+Center+Al+Khobar" target="_blank" rel="noopener" class="action-btn">
+                <a href="https://maps.google.com/?q=%D9%85%D9%86%D8%AA%D8%AC%D8%B9+%D9%88%D9%87%D8%AC" target="_blank" rel="noopener" class="action-btn">
                     <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                     الاتجاهات للموقع
                 </a>
 
                 <!-- Add to Google Calendar -->
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87&dates=20260717T170000Z/20260717T210000Z&details=%D9%86%D8%AA%D8%B4%D8%B1%D9%81+%D8%A8%D8%AF%D8%B9%D9%88%D8%AA%D9%83%D9%85+%D9%84%D8%AD%D8%B6%D9%88%D8%B1+%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87&location=Efficiency+Center,+Al+Khobar" target="_blank" rel="noopener" class="action-btn">
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87&dates=20260716T170000Z/20260716T210000Z&details=%D9%86%D8%AA%D8%B4%D8%B1%D9%81+%D8%A8%D8%AF%D8%B9%D9%88%D8%AA%D9%83%D9%85+%D9%84%D8%AD%D8%B6%D9%88%D8%B1+%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87&location=%D9%85%D9%86%D8%AA%D8%AC%D8%B9+%D9%88%D9%87%D8%AC" target="_blank" rel="noopener" class="action-btn">
                     <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm-7-9h5v5h-5z"/></svg>
                     أضف للتقويم
                 </a>
 
                 <!-- WhatsApp Share -->
-                <a href="https://wa.me/?text=%D8%AF%D8%B9%D9%88%D8%A9+%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87+%F0%9F%92%8D%0A%D8%A7%D9%84%D8%AC%D9%85%D8%B9%D8%A9+%D9%A1%D9%A7+.+%D9%A7+.+%D9%A2%D9%A0%D9%A2%D9%A6+%7C+%D9%A8+%D9%85%D8%B3%D8%A7%D8%A1%D9%8B" target="_blank" rel="noopener" class="action-btn">
+                <a href="https://wa.me/?text=%D8%AF%D8%B9%D9%88%D8%A9+%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87+%F0%9F%92%8D%0A%D8%A7%D9%84%D8%AE%D9%85%D9%8A%D8%B3+%D9%A1%D9%A6+.+%D9%A7+.+%D9%A2%D9%A0%D9%A2%D9%A6+%7C+%D9%A8+%D9%85%D8%B3%D8%A7%D8%A1%D9%8B" target="_blank" rel="noopener" class="action-btn">
                     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     شارك الدعوة
                 </a>
@@ -1109,10 +1130,12 @@
             '01cc498c268a4314d231f2e899a9faf717b7f8bbc9f3889bb1e539651907adde': { name: 'محمد أحمد', allowedGuests: 3 },
             '153368134c3c7dbbfddf91cfe3cdbd76d43bc6d3f627a8d15ed76dfe2f680c42': { name: 'سارة خالد', allowedGuests: 2 },
             '291fa4eef12475c25a44a030a0b50a77a84b357618de150d87e3a0a3d811e7d8': { name: 'فاطمة علي', allowedGuests: 1 },
-            '9119518b8035c762b110e4b3d4bb3fac2a9e16e0d0bb692a2ce050d885fa5d8c': { name: 'اثير العتيبي', allowedGuests: 2 },
+            '9119518b8035c762b110e4b3d4bb3fac2a9e16e0d0bb692a2ce050d885fa5d8c': { name: 'اثير العتيبي', allowedGuests: 2, admin: true },
             '5c556c7ad0489d75e4c19a556167bb2c0f4a8febfac3d4da656ff0aec0f1f938': { name: 'نوف العتيبي', allowedGuests: 2 },
             '47db511d47f157bf2636f71798f73a1ed4c60f1bb1ac7acddb6c2b4c9f015ae5': { name: 'عائشة ضيف الله', allowedGuests: 2 },
             '2d7dda4ba60d948c295ab3d0e02aada1ba73852bc1316c6529f90cef09f0fac8': { name: 'هند العتيبي', allowedGuests: 2 },
+            '17058ca8a57544197f1b5b12b8281f76b412f50cc09deec11a2a9d93da6f3f0e': { name: 'مشرف ٢', allowedGuests: 2, admin: true },
+            '6f91706266a1e9678b094beb08a1a6e9ed1933050622289aa7ad6dd36ee32b9c': { name: 'مشرف ٣', allowedGuests: 2, admin: true },
             // أضف الضيوف هنا (استخدم: echo -n "05XXXXXXXX" | shasum -a 256)
         };
         // ====================================================
@@ -1138,7 +1161,11 @@
 
             if (GUEST_LIST[hashed]) {
                 currentGuest = { phone: normalized, ...GUEST_LIST[hashed] };
-                showPage2();
+                if (GUEST_LIST[hashed].admin) {
+                    showAdminPanel();
+                } else {
+                    showPage2();
+                }
                 errorEl.style.display = 'none';
             } else {
                 errorEl.style.display = 'block';
@@ -1197,7 +1224,7 @@
         }
 
         // Countdown — April 10, 2026 at 8 PM
-        const weddingDate = new Date('2026-07-17T20:00:00').getTime();
+        const weddingDate = new Date('2026-07-16T20:00:00').getTime();
 
         function toArabicNum(num) {
             return String(num).padStart(2, '0');
@@ -1331,28 +1358,50 @@
             successEl.classList.add('rsvp-success-animate');
         }
 
-        // Admin: add ?admin to URL to show export button
-        // if (window.location.search.includes('admin')) {
-        //     const adminBar = document.createElement('div');
-        //     adminBar.style.cssText = 'position:fixed;bottom:20px;left:20px;z-index:999;';
-        //     const exportBtn = document.createElement('button');
-        //     exportBtn.textContent = 'تحميل Excel';
-        //     exportBtn.style.cssText = 'padding:12px 24px;background:#6B1E3A;color:#fff;border:none;border-radius:50px;font-family:Tajawal,sans-serif;font-size:1rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);';
-        //     exportBtn.onclick = function() {
-        //         const data = getRSVPData();
-        //         if (!data.length) { alert('لا توجد ردود بعد'); return; }
-        //         const ws = XLSX.utils.json_to_sheet(data.map(r => ({
-        //             'الاسم': r.name,
-        //             'الحضور': r.attending,
-        //             'التاريخ': r.timestamp
-        //         })));
-        //         const wb = XLSX.utils.book_new();
-        //         XLSX.utils.book_append_sheet(wb, ws, 'الردود');
-        //         XLSX.writeFile(wb, 'rsvp-responses.xlsx');
-        //     };
-        //     adminBar.appendChild(exportBtn);
-        //     document.body.appendChild(adminBar);
-        // }
+        function showAdminPanel() {
+            document.getElementById('verify-section').style.display = 'none';
+            const panel = document.createElement('section');
+            panel.className = 'content-section';
+            panel.innerHTML = `
+                <div class="glass-card" style="text-align:center;">
+                    <h2 class="section-title" style="margin-bottom:0.5rem;">لوحة التحكم</h2>
+                    <p class="section-subtitle" style="margin-bottom:2rem;">أهلاً ${currentGuest.name}</p>
+                    <div id="admin-stats" style="margin-bottom:2rem;"></div>
+                    <button onclick="exportExcel()" style="padding:14px 40px;background:#6B1E3A;color:#fff;border:none;border-radius:50px;font-family:'El Messiri',sans-serif;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:transform 0.2s;">
+                        تحميل ردود الضيوف (Excel)
+                    </button>
+                </div>
+            `;
+            document.getElementById('verify-section').parentNode.insertBefore(panel, document.getElementById('verify-section').nextSibling);
+
+            const data = getRSVPData();
+            const attending = data.filter(r => r.attending === 'سأحضر');
+            const declined = data.filter(r => r.attending === 'أعتذر');
+            const totalGuests = attending.reduce((sum, r) => sum + (r.guestCount || 0), 0);
+            document.getElementById('admin-stats').innerHTML = `
+                <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
+                    <div><span style="font-size:2rem;font-weight:700;color:var(--gold-light);">${data.length}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">إجمالي الردود</span></div>
+                    <div><span style="font-size:2rem;font-weight:700;color:#4CAF50;">${attending.length}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">سيحضرون</span></div>
+                    <div><span style="font-size:2rem;font-weight:700;color:#e57373;">${declined.length}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">اعتذروا</span></div>
+                    <div><span style="font-size:2rem;font-weight:700;color:var(--gold-light);">${totalGuests}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">عدد المرافقين</span></div>
+                </div>
+            `;
+        }
+
+        function exportExcel() {
+            const data = getRSVPData();
+            if (!data.length) { alert('لا توجد ردود بعد'); return; }
+            const ws = XLSX.utils.json_to_sheet(data.map(r => ({
+                'الاسم': r.name,
+                'رقم الجوال': r.phone,
+                'الحضور': r.attending,
+                'عدد المرافقين': r.guestCount || 0,
+                'التاريخ': r.timestamp
+            })));
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'ردود الضيوف');
+            XLSX.writeFile(wb, 'rsvp-responses.xlsx');
+        }
     </script>
 
 </body>
