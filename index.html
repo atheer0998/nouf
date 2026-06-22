@@ -19,6 +19,7 @@
     <meta name="twitter:description" content="بمشاعر مليئة بالفرح والسعادة نتشرف بدعوتكم لحضور عقد قران نوف وعبدالله">
     <meta name="twitter:image" content="https://noufandabdullah.com/og-image.png">
     <meta name="description" content="بمشاعر مليئة بالفرح والسعادة نتشرف بدعوتكم لحضور عقد قران نوف وعبدالله">
+    <meta name="theme-color" content="#B4828C">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @font-face {
@@ -55,7 +56,7 @@
 
         body {
             font-family: 'El Messiri', sans-serif;
-            background: url('fullbg.jpeg') center top / cover no-repeat;
+            background: url('fullbg.jpeg') center top / cover repeat-y;
             color: var(--text-light);
             overflow-x: hidden;
             line-height: 1.5;
@@ -278,13 +279,11 @@
         }
 
         .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 0;
-            right: 0;
+            margin-top: 1.5rem;
             text-align: center;
             opacity: 0;
             animation: fadeUp 1s ease 1.5s forwards;
+            cursor: pointer;
         }
 
         .scroll-indicator svg {
@@ -511,6 +510,13 @@
             transform: translateY(0);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         /* Action Buttons (Calendar, WhatsApp, Maps) */
         .action-buttons {
             display: flex;
@@ -722,10 +728,26 @@
         }
 
         .phone-error {
-            color: #ff9999;
             font-size: 0.85rem;
-            margin-top: 0.8rem;
+            margin-top: 1rem;
             display: none;
+            color: #fff;
+            background: rgba(180, 40, 40, 0.85);
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
+        }
+
+        .phone-error.shake {
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
         }
 
         .phone-label {
@@ -798,7 +820,7 @@
             font-family: 'El Messiri', sans-serif;
             font-size: 0.95rem;
             color: var(--text-light);
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.6)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") left 1.2rem center / 12px no-repeat;
             direction: rtl;
             appearance: none;
             cursor: pointer;
@@ -984,10 +1006,10 @@
             </div>
 
             <p class="hero-closing">وبحضوركم يتم لنا الفرح والسرور</p>
-        </div>
 
-        <div class="scroll-indicator">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <div class="scroll-indicator" onclick="document.getElementById('verify-section').scrollIntoView({behavior:'smooth'});">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
         </div>
 
     </section>
@@ -1084,7 +1106,7 @@
             </div>
 
             <div class="map-container fade-in">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1844194.3764426683!2d46.98453917327027!3d25.473607371695756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e361db597d487a3%3A0x29aaf1a8a2e8d04!2z2YXZhtiq2KzYuSDZiNmH2Kw!5e0!3m2!1sen!2ssa!4v1782030133467!5m2!1sen!2ssa" width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3625.0!2d46.98453917327027!3d25.473607371695756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e361db597d487a3%3A0x29aaf1a8a2e8d04!2z2YXZhtiq2KzYuSDZiNmH2Kw!5e0!3m2!1sar!2ssa!4v1782030133467!5m2!1sar!2ssa" width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <!-- Action Buttons -->
@@ -1173,6 +1195,10 @@
     <footer>
         <img src="icon.png" alt="" style="width: 60px; opacity: 0.7; margin-bottom: 0.8rem;">
         <p class="footer-text">بانتظاركم بكل حب</p>
+        <div dir="ltr" style="margin-top: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem; opacity: 0.85;">
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Powered by</span>
+            <img src="6degrees-logo.png" alt="6 Degrees" style="height: 22px;">
+        </div>
     </footer>
 
     <script>
@@ -1229,6 +1255,9 @@
                 errorEl.style.display = 'none';
             } else {
                 errorEl.style.display = 'block';
+                errorEl.classList.remove('shake');
+                void errorEl.offsetWidth;
+                errorEl.classList.add('shake');
             }
         }
 
@@ -1287,7 +1316,7 @@
         const weddingDate = new Date('2026-07-16T20:00:00').getTime();
 
         function toArabicNum(num) {
-            return String(num).padStart(2, '0');
+            return String(num).padStart(2, '0').replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
         }
 
         function updateCountdown() {
@@ -1314,7 +1343,7 @@
             document.getElementById('minutes').textContent = toArabicNum(minutes);
             document.getElementById('seconds').textContent = toArabicNum(seconds);
 
-            if (daysRemEl) daysRemEl.textContent = 'باقي ' + days + ' يوم على الفرح';
+            if (daysRemEl) daysRemEl.textContent = 'باقي ' + String(days).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]) + ' يوم على الفرح';
         }
 
         updateCountdown();
@@ -1405,7 +1434,7 @@
             submitBtn.disabled = true;
 
             try {
-                await fetch(SCRIPT_URL, {
+                const res = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify({
                         name,
@@ -1414,7 +1443,13 @@
                         guestCount: Number(guestCount)
                     })
                 });
-            } catch (e) {}
+                if (!res.ok) throw new Error();
+            } catch (e) {
+                submitBtn.textContent = 'إرسال التأكيد';
+                submitBtn.disabled = false;
+                alert('حدث خطأ في الإرسال، يرجى المحاولة مرة أخرى');
+                return;
+            }
 
             localStorage.setItem('rsvp_submitted', 'true');
 
