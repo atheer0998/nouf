@@ -20,7 +20,6 @@
     <meta name="twitter:image" content="https://noufandabdullah.com/og-image.png">
     <meta name="description" content="بمشاعر مليئة بالفرح والسعادة نتشرف بدعوتكم لحضور عقد قران نوف وعبدالله">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <style>
         @font-face {
             font-family: 'Decotype Thuluth';
@@ -56,7 +55,7 @@
 
         body {
             font-family: 'El Messiri', sans-serif;
-            background: url('fullbg.jpeg') center top / cover no-repeat fixed;
+            background: url('fullbg.jpeg') center top / cover no-repeat;
             color: var(--text-light);
             overflow-x: hidden;
             line-height: 1.5;
@@ -108,21 +107,9 @@
             text-align: center;
             padding: 6rem 2rem 12rem;
             position: relative;
-            background: url('newbgforhero.png') center center / 100% 100% no-repeat;
+            background: url('newhero.png') center center / 100% 100% no-repeat;
             overflow: hidden;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: none;
-            pointer-events: none;
-        }
-
 
         .hero-content {
             position: relative;
@@ -221,27 +208,9 @@
 
         .hero-dove {
             width: clamp(40px, 10vw, 70px);
-            opacity: 0.6;
             margin-bottom: 0;
             opacity: 0;
             animation: fadeUp 1s ease 0.7s forwards;
-        }
-
-        .hero-flowers-wrap {
-            position: absolute;
-            bottom: -30px;
-            left: 0;
-            right: 0;
-            z-index: 2;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .hero-flowers-img {
-            display: block;
-            width: 120%;
-            max-width: none;
-            margin: 0 -10%;
         }
 
         /* Decorative positioned elements */
@@ -889,9 +858,100 @@
         .logout-btn:hover {
             color: var(--gold-light);
         }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('fullbg.jpeg') center center / cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .loading-logo-wrap {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-logo {
+            width: 60px;
+            opacity: 0;
+            animation: logoReveal 1.2s ease forwards 0.3s;
+        }
+
+        .loading-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            border-top-color: var(--gold-light);
+            border-right-color: var(--gold-light);
+            opacity: 0;
+            animation: ringDraw 1.8s ease forwards 0.2s;
+        }
+
+        .loading-line {
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+            animation: lineExpand 1.2s ease forwards 0.8s;
+        }
+
+        @keyframes logoReveal {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 0.85; transform: scale(1); }
+        }
+
+        @keyframes ringDraw {
+            0% { opacity: 0; transform: rotate(0deg) scale(0.8); border-color: transparent; }
+            20% { opacity: 0.6; border-top-color: var(--gold-light); border-right-color: transparent; border-bottom-color: transparent; border-left-color: transparent; }
+            50% { opacity: 0.8; border-top-color: var(--gold-light); border-right-color: var(--gold-light); border-bottom-color: transparent; border-left-color: transparent; }
+            80% { opacity: 0.6; border-top-color: var(--gold-light); border-right-color: var(--gold-light); border-bottom-color: var(--gold-light); border-left-color: transparent; }
+            100% { opacity: 0.4; transform: rotate(360deg) scale(1); border-color: var(--gold-light); }
+        }
+
+        @keyframes lineExpand {
+            0% { width: 0; opacity: 0; }
+            100% { width: 120px; opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-inner">
+            <div class="loading-logo-wrap">
+                <div class="loading-ring"></div>
+                <img src="icon.png" class="loading-logo" alt="">
+            </div>
+            <div class="loading-line"></div>
+        </div>
+    </div>
 
     <!-- Navigation (hidden until verified) -->
     <nav id="navbar" class="hidden">
@@ -1013,8 +1073,8 @@
                 </div>
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    <span class="event-info-label">قاعة الاحتفالات</span>
-                    <span class="event-info-sub">الخبر</span>
+                    <span class="event-info-label">منتجع وهج</span>
+                    <span class="event-info-sub">الرياض</span>
                 </div>
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
@@ -1116,6 +1176,15 @@
     </footer>
 
     <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loading-screen');
+                loader.classList.add('fade-out');
+                setTimeout(() => loader.remove(), 600);
+            }, 1500);
+        });
+
         // ==================== GUEST LIST (SHA-256 hashed) ====================
         const GUEST_LIST = {
             '01cc498c268a4314d231f2e899a9faf717b7f8bbc9f3889bb1e539651907adde': { name: 'محمد أحمد', allowedGuests: 3 },
@@ -1214,7 +1283,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Countdown — April 10, 2026 at 8 PM
+        // Countdown — July 16, 2026 at 8 PM
         const weddingDate = new Date('2026-07-16T20:00:00').getTime();
 
         function toArabicNum(num) {
@@ -1301,9 +1370,19 @@
             setTimeout(() => container.remove(), 5000);
         }
 
-        // RSVP
-        function getRSVPData() {
-            return JSON.parse(localStorage.getItem('rsvp_responses') || '[]');
+        // RSVP — Google Sheets backend
+        // Replace this URL with your deployed Google Apps Script web app URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEfY_qzOzbomWIPeM4tsm8j8lKSzIG8U5yoV3j6cR--Knws7KOohCYf43CsR-ApPC6/exec';
+
+        let adminData = [];
+
+        async function fetchRSVPData() {
+            try {
+                const res = await fetch(SCRIPT_URL);
+                return await res.json();
+            } catch (e) {
+                return [];
+            }
         }
 
         (function checkAlreadySubmitted() {
@@ -1314,22 +1393,29 @@
             }
         })();
 
-        function handleRSVP(e) {
+        async function handleRSVP(e) {
             e.preventDefault();
             const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn');
             const name = document.getElementById('name').value;
             const attending = document.querySelector('input[name="attending"]:checked').value;
             const guestCount = attending === 'yes' ? (document.getElementById('guest-count').value || 0) : 0;
 
-            const responses = getRSVPData();
-            responses.push({
-                name,
-                phone: currentGuest ? currentGuest.phone : '',
-                attending: attending === 'yes' ? 'سأحضر' : 'أعتذر',
-                guestCount: Number(guestCount),
-                timestamp: new Date().toLocaleString('ar-SA')
-            });
-            localStorage.setItem('rsvp_responses', JSON.stringify(responses));
+            submitBtn.textContent = 'جاري الإرسال...';
+            submitBtn.disabled = true;
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name,
+                        phone: currentGuest ? currentGuest.phone : '',
+                        attending: attending === 'yes' ? 'سأحضر' : 'أعتذر',
+                        guestCount: Number(guestCount)
+                    })
+                });
+            } catch (e) {}
+
             localStorage.setItem('rsvp_submitted', 'true');
 
             const successEl = document.getElementById('rsvp-success');
@@ -1349,7 +1435,7 @@
             successEl.classList.add('rsvp-success-animate');
         }
 
-        function showAdminPanel() {
+        async function showAdminPanel() {
             document.getElementById('verify-section').style.display = 'none';
             const panel = document.createElement('section');
             panel.className = 'content-section';
@@ -1357,7 +1443,7 @@
                 <div class="glass-card" style="text-align:center;">
                     <h2 class="section-title" style="margin-bottom:0.5rem;">لوحة التحكم</h2>
                     <p class="section-subtitle" style="margin-bottom:2rem;">أهلاً ${currentGuest.name}</p>
-                    <div id="admin-stats" style="margin-bottom:2rem;"></div>
+                    <div id="admin-stats" style="margin-bottom:2rem;"><p style="color:var(--text-muted);">جاري تحميل البيانات...</p></div>
                     <button onclick="exportExcel()" style="padding:14px 40px;background:#6B1E3A;color:#fff;border:none;border-radius:50px;font-family:'El Messiri',sans-serif;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:transform 0.2s;">
                         تحميل ردود الضيوف (Excel)
                     </button>
@@ -1365,13 +1451,13 @@
             `;
             document.getElementById('verify-section').parentNode.insertBefore(panel, document.getElementById('verify-section').nextSibling);
 
-            const data = getRSVPData();
-            const attending = data.filter(r => r.attending === 'سأحضر');
-            const declined = data.filter(r => r.attending === 'أعتذر');
-            const totalGuests = attending.reduce((sum, r) => sum + (r.guestCount || 0), 0);
+            adminData = await fetchRSVPData();
+            const attending = adminData.filter(r => r.attending === 'سأحضر');
+            const declined = adminData.filter(r => r.attending === 'أعتذر');
+            const totalGuests = attending.reduce((sum, r) => sum + (Number(r.guestCount) || 0), 0);
             document.getElementById('admin-stats').innerHTML = `
                 <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
-                    <div><span style="font-size:2rem;font-weight:700;color:var(--gold-light);">${data.length}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">إجمالي الردود</span></div>
+                    <div><span style="font-size:2rem;font-weight:700;color:var(--gold-light);">${adminData.length}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">إجمالي الردود</span></div>
                     <div><span style="font-size:2rem;font-weight:700;color:#4CAF50;">${attending.length}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">سيحضرون</span></div>
                     <div><span style="font-size:2rem;font-weight:700;color:#e57373;">${declined.length}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">اعتذروا</span></div>
                     <div><span style="font-size:2rem;font-weight:700;color:var(--gold-light);">${totalGuests}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">عدد المرافقين</span></div>
@@ -1380,18 +1466,24 @@
         }
 
         function exportExcel() {
-            const data = getRSVPData();
-            if (!data.length) { alert('لا توجد ردود بعد'); return; }
-            const ws = XLSX.utils.json_to_sheet(data.map(r => ({
-                'الاسم': r.name,
-                'رقم الجوال': r.phone,
-                'الحضور': r.attending,
-                'عدد المرافقين': r.guestCount || 0,
-                'التاريخ': r.timestamp
-            })));
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'ردود الضيوف');
-            XLSX.writeFile(wb, 'rsvp-responses.xlsx');
+            if (!adminData.length) { alert('لا توجد ردود بعد'); return; }
+            function doExport() {
+                const ws = XLSX.utils.json_to_sheet(adminData.map(r => ({
+                    'الاسم': r.name,
+                    'رقم الجوال': r.phone,
+                    'الحضور': r.attending,
+                    'عدد المرافقين': r.guestCount || 0,
+                    'التاريخ': r.timestamp
+                })));
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'ردود الضيوف');
+                XLSX.writeFile(wb, 'rsvp-responses.xlsx');
+            }
+            if (typeof XLSX !== 'undefined') { doExport(); return; }
+            const s = document.createElement('script');
+            s.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+            s.onload = doExport;
+            document.head.appendChild(s);
         }
     </script>
 
