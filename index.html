@@ -1209,9 +1209,22 @@
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEfY_qzOzbomWIPeM4tsm8j8lKSzIG8U5yoV3j6cR--Knws7KOohCYf43CsR-ApPC6/exec';
 
         let currentGuest = null;
+        let guestListCache = null;
+
+        // Pre-fetch guest list on page load (hashed phones — no real numbers exposed)
+        fetch(SCRIPT_URL + '?action=guests')
+            .then(r => r.json())
+            .then(data => { guestListCache = data; })
+            .catch(() => {});
 
         function normalizeNumerals(str) {
             return str.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+        }
+
+        async function hashPhone(phone) {
+            const data = new TextEncoder().encode(phone);
+            const buf = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
         async function verifyGuest(e) {
@@ -1220,37 +1233,43 @@
             const errorEl = document.getElementById('phone-error');
             const submitBtn = document.querySelector('.phone-submit');
             const normalized = normalizeNumerals(phone).replace(/[\s\-]/g, '');
+            const hashed = await hashPhone(normalized);
 
-            submitBtn.textContent = 'جاري التحقق...';
-            submitBtn.disabled = true;
-
-            try {
-                const res = await fetch(SCRIPT_URL + '?action=verify&phone=' + encodeURIComponent(normalized));
-                const guest = await res.json();
-
-                if (guest.found) {
-                    currentGuest = { phone: normalized, name: guest.name, allowedGuests: guest.allowedGuests, admin: guest.admin };
-                    errorEl.style.display = 'none';
-                    if (guest.admin) {
-                        showAdminPanel();
-                    } else {
-                        showPage2();
-                    }
-                } else {
+            // If cache not loaded yet, wait for it
+            if (!guestListCache) {
+                submitBtn.textContent = 'جاري التحقق...';
+                submitBtn.disabled = true;
+                try {
+                    const res = await fetch(SCRIPT_URL + '?action=guests');
+                    guestListCache = await res.json();
+                } catch (err) {
                     errorEl.style.display = 'block';
                     errorEl.classList.remove('shake');
                     void errorEl.offsetWidth;
                     errorEl.classList.add('shake');
+                    submitBtn.textContent = 'دخول';
+                    submitBtn.disabled = false;
+                    return;
                 }
-            } catch (err) {
+                submitBtn.textContent = 'دخول';
+                submitBtn.disabled = false;
+            }
+
+            if (guestListCache[hashed]) {
+                const guest = guestListCache[hashed];
+                currentGuest = { phone: normalized, name: guest.name, allowedGuests: guest.allowedGuests, admin: guest.admin };
+                errorEl.style.display = 'none';
+                if (guest.admin) {
+                    showAdminPanel();
+                } else {
+                    showPage2();
+                }
+            } else {
                 errorEl.style.display = 'block';
                 errorEl.classList.remove('shake');
                 void errorEl.offsetWidth;
                 errorEl.classList.add('shake');
             }
-
-            submitBtn.textContent = 'دخول';
-            submitBtn.disabled = false;
         }
 
         function showPage2() {
