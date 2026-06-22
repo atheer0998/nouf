@@ -1105,11 +1105,8 @@
                 </div>
             </div>
 
-            <div class="map-container fade-in" id="map-container" onclick="loadMap(this)" style="cursor:pointer; position:relative;">
-                <div class="map-placeholder" style="width:100%; height:300px; border-radius:12px; background:rgba(255,255,255,0.08); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem;">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--gold-light)" opacity="0.7"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    <span style="color:var(--text-muted); font-size:0.85rem;">اضغط لعرض الخريطة</span>
-                </div>
+            <div class="map-container fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3625.0!2d46.98453917327027!3d25.473607371695756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e361db597d487a3%3A0x29aaf1a8a2e8d04!2z2YXZhtiq2KzYuSDZiNmH2Kw!5e0!3m2!1sar!2ssa!4v1782030133467!5m2!1sar!2ssa" width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <!-- Action Buttons -->
@@ -1496,12 +1493,6 @@
                     <div><span style="font-size:2rem;font-weight:700;color:var(--gold-light);">${totalGuests}</span><br><span style="color:var(--text-muted);font-size:0.9rem;">عدد المرافقين</span></div>
                 </div>
             `;
-        }
-
-        function loadMap(container) {
-            container.style.cursor = '';
-            container.onclick = null;
-            container.innerHTML = '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3625.0!2d46.98453917327027!3d25.473607371695756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e361db597d487a3%3A0x29aaf1a8a2e8d04!2z2YXZhtiq2KzYuSDZiNmH2Kw!5e0!3m2!1sar!2ssa!4v1782030133467!5m2!1sar!2ssa" width="100%" height="300" style="border:0; border-radius: 12px;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>';
         }
 
         function exportExcel() {
