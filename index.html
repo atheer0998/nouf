@@ -1206,20 +1206,7 @@
             }, 1500);
         });
 
-        // ==================== GUEST LIST (SHA-256 hashed) ====================
-        const GUEST_LIST = {
-            '01cc498c268a4314d231f2e899a9faf717b7f8bbc9f3889bb1e539651907adde': { name: 'محمد أحمد', allowedGuests: 3 },
-            '153368134c3c7dbbfddf91cfe3cdbd76d43bc6d3f627a8d15ed76dfe2f680c42': { name: 'سارة خالد', allowedGuests: 2 },
-            '291fa4eef12475c25a44a030a0b50a77a84b357618de150d87e3a0a3d811e7d8': { name: 'فاطمة علي', allowedGuests: 1 },
-            '9119518b8035c762b110e4b3d4bb3fac2a9e16e0d0bb692a2ce050d885fa5d8c': { name: 'اثير العتيبي', allowedGuests: 2, admin: true },
-            '5c556c7ad0489d75e4c19a556167bb2c0f4a8febfac3d4da656ff0aec0f1f938': { name: 'نوف العتيبي', allowedGuests: 2 },
-            '47db511d47f157bf2636f71798f73a1ed4c60f1bb1ac7acddb6c2b4c9f015ae5': { name: 'عائشة ضيف الله', allowedGuests: 2 },
-            '2d7dda4ba60d948c295ab3d0e02aada1ba73852bc1316c6529f90cef09f0fac8': { name: 'هند العتيبي', allowedGuests: 2 },
-            '17058ca8a57544197f1b5b12b8281f76b412f50cc09deec11a2a9d93da6f3f0e': { name: 'مشرف ٢', allowedGuests: 2, admin: true },
-            '6f91706266a1e9678b094beb08a1a6e9ed1933050622289aa7ad6dd36ee32b9c': { name: 'مشرف ٣', allowedGuests: 2, admin: true },
-            // أضف الضيوف هنا (استخدم: echo -n "05XXXXXXXX" | shasum -a 256)
-        };
-        // ====================================================
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEfY_qzOzbomWIPeM4tsm8j8lKSzIG8U5yoV3j6cR--Knws7KOohCYf43CsR-ApPC6/exec';
 
         let currentGuest = null;
 
@@ -1227,33 +1214,43 @@
             return str.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
         }
 
-        async function hashPhone(phone) {
-            const data = new TextEncoder().encode(phone);
-            const buf = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
         async function verifyGuest(e) {
             e.preventDefault();
             const phone = document.getElementById('phone-input').value.trim();
             const errorEl = document.getElementById('phone-error');
+            const submitBtn = document.querySelector('.phone-submit');
             const normalized = normalizeNumerals(phone).replace(/[\s\-]/g, '');
-            const hashed = await hashPhone(normalized);
 
-            if (GUEST_LIST[hashed]) {
-                currentGuest = { phone: normalized, ...GUEST_LIST[hashed] };
-                if (GUEST_LIST[hashed].admin) {
-                    showAdminPanel();
+            submitBtn.textContent = 'جاري التحقق...';
+            submitBtn.disabled = true;
+
+            try {
+                const res = await fetch(SCRIPT_URL + '?action=verify&phone=' + encodeURIComponent(normalized));
+                const guest = await res.json();
+
+                if (guest.found) {
+                    currentGuest = { phone: normalized, name: guest.name, allowedGuests: guest.allowedGuests, admin: guest.admin };
+                    errorEl.style.display = 'none';
+                    if (guest.admin) {
+                        showAdminPanel();
+                    } else {
+                        showPage2();
+                    }
                 } else {
-                    showPage2();
+                    errorEl.style.display = 'block';
+                    errorEl.classList.remove('shake');
+                    void errorEl.offsetWidth;
+                    errorEl.classList.add('shake');
                 }
-                errorEl.style.display = 'none';
-            } else {
+            } catch (err) {
                 errorEl.style.display = 'block';
                 errorEl.classList.remove('shake');
                 void errorEl.offsetWidth;
                 errorEl.classList.add('shake');
             }
+
+            submitBtn.textContent = 'دخول';
+            submitBtn.disabled = false;
         }
 
         function showPage2() {
@@ -1394,15 +1391,11 @@
             setTimeout(() => container.remove(), 5000);
         }
 
-        // RSVP — Google Sheets backend
-        // Replace this URL with your deployed Google Apps Script web app URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEfY_qzOzbomWIPeM4tsm8j8lKSzIG8U5yoV3j6cR--Knws7KOohCYf43CsR-ApPC6/exec';
-
         let adminData = [];
 
         async function fetchRSVPData() {
             try {
-                const res = await fetch(SCRIPT_URL);
+                const res = await fetch(SCRIPT_URL + '?action=rsvp');
                 return await res.json();
             } catch (e) {
                 return [];
