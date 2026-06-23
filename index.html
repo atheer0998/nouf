@@ -41,7 +41,7 @@
             --rose-dark: #8B5E6B;
             --cream: #F5E6E0;
             --gold: #D4B896;
-            --gold-light: #E8D5B7;
+            --gold-light: #FFF0D4;
             --text-light: #FFFFFF;
             --text-cream: #F5E6E0;
             --text-dark: #3D2B2B;
@@ -128,7 +128,7 @@
 
         .hero-dua {
             font-family: 'Decotype Thuluth', serif;
-            font-size: clamp(1.4rem, 4.5vw, 2.4rem);
+            font-size: clamp(1.5rem, 4.8vw, 2.6rem);
             color: var(--gold-light);
             font-weight: normal;
             margin-top: 1rem;
@@ -149,7 +149,7 @@
 
         .hero-invite {
             font-family: 'El Messiri', sans-serif;
-            font-size: clamp(1rem, 2.2vw, 1.25rem);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             color: var(--gold-light);
             font-weight: 300;
             letter-spacing: 1px;
@@ -240,7 +240,7 @@
 
         .hero-closing {
             font-family: 'El Messiri', sans-serif;
-            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             color: var(--gold-light);
             margin-top: 0.8rem;
             opacity: 0;
@@ -447,6 +447,15 @@
 
         .form-group input::placeholder {
             color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group input:-webkit-autofill,
+        .form-group input:-webkit-autofill:hover,
+        .form-group input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 1000px rgba(180, 130, 140, 0.95) inset;
+            -webkit-text-fill-color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            caret-color: #fff;
         }
 
         .form-group input:focus {
@@ -711,6 +720,15 @@
         .phone-input-wrapper input::placeholder {
             color: rgba(255, 255, 255, 0.4);
             font-size: 0.85rem;
+        }
+
+        .phone-input-wrapper input:-webkit-autofill,
+        .phone-input-wrapper input:-webkit-autofill:hover,
+        .phone-input-wrapper input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 1000px rgba(180, 130, 140, 0.95) inset;
+            -webkit-text-fill-color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            caret-color: #fff;
         }
 
         .phone-input-wrapper input:focus {
@@ -1137,6 +1155,65 @@
         <img src="element3.png" alt="" loading="lazy" decoding="async">
     </div>
 
+    <!-- RSVP Section -->
+    <section class="content-section" id="rsvp">
+        <div class="glass-card" style="position: relative; overflow: hidden;">
+            <div class="fade-in">
+                <h2 class="section-title">تأكيد الحضور</h2>
+                <p class="section-subtitle">نسعد بتأكيد حضوركم لمشاركتنا هذه الليلة المميزة</p>
+            </div>
+
+            <form class="rsvp-form fade-in" onsubmit="handleRSVP(event)">
+                <div class="form-group">
+                    <label for="name">الاسم الكريم</label>
+                    <input type="text" id="name" placeholder="أدخل اسمك الكامل" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="attending-yes" name="attending" value="yes" required>
+                            <label for="attending-yes">سأحضر بإذن الله</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="attending-no" name="attending" value="no">
+                            <label for="attending-no">أعتذر عن الحضور</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guest-count-group" id="guest-count-group" style="display:none;">
+                    <label for="guest-count">عدد المرافقين</label>
+                    <select id="guest-count">
+                        <!-- Options populated dynamically based on guest allowance -->
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">إرسال التأكيد</button>
+            </form>
+
+            <div id="rsvp-success" style="display:none; margin-top: 2rem;">
+                <div id="rsvp-emoji" style="font-size: 3rem; margin-bottom: 1rem;">💐</div>
+                <p id="rsvp-msg" style="font-family: 'El Messiri', sans-serif; font-size: 1.3rem; color: var(--text-light);">شكراً لتأكيد حضوركم</p>
+                <p id="rsvp-sub" style="color: var(--text-muted); margin-top: 0.5rem;">نتطلع لرؤيتكم في هذه الليلة السعيدة</p>
+                <button onclick="editRSVP()" style="margin-top: 1.5rem; padding: 0.7rem 2rem; background: none; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; color: var(--text-light); font-family: 'El Messiri', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.3s;">تعديل الرد</button>
+            </div>
+
+            <!-- Already submitted message -->
+            <div id="rsvp-already" style="display:none; margin-top: 2rem;">
+                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <p style="font-family: 'El Messiri', sans-serif; font-size: 1.3rem; color: var(--text-light);">تم تسجيل حضوركم مسبقاً</p>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">شكراً لكم، نتطلع لرؤيتكم</p>
+                <button onclick="editRSVP()" style="margin-top: 1.5rem; padding: 0.7rem 2rem; background: none; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; color: var(--text-light); font-family: 'El Messiri', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.3s;">تعديل الرد</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flower Divider -->
+    <div class="section-divider">
+        <img src="element3.png" alt="" loading="lazy" decoding="async">
+    </div>
+
     <!-- Details Section -->
     <section class="content-section" id="details">
         <div class="glass-card" style="position: relative; overflow: hidden;">
@@ -1181,63 +1258,6 @@
                     أضف للتقويم
                 </a>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- Flower Divider -->
-    <div class="section-divider">
-        <img src="element3.png" alt="" loading="lazy" decoding="async">
-    </div>
-
-    <!-- RSVP Section -->
-    <section class="content-section" id="rsvp">
-        <div class="glass-card" style="position: relative; overflow: hidden;">
-            <div class="fade-in">
-                <h2 class="section-title">تأكيد الحضور</h2>
-                <p class="section-subtitle">نسعد بتأكيد حضوركم لمشاركتنا هذه الليلة المميزة</p>
-            </div>
-
-            <form class="rsvp-form fade-in" onsubmit="handleRSVP(event)">
-                <div class="form-group">
-                    <label for="name">الاسم الكريم</label>
-                    <input type="text" id="name" placeholder="أدخل اسمك الكامل" required>
-                </div>
-
-                <div class="form-group">
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" id="attending-yes" name="attending" value="yes" required>
-                            <label for="attending-yes">سأحضر بإذن الله</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="attending-no" name="attending" value="no">
-                            <label for="attending-no">أعتذر عن الحضور</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guest-count-group" id="guest-count-group" style="display:none;">
-                    <label for="guest-count">عدد المرافقين</label>
-                    <select id="guest-count">
-                        <!-- Options populated dynamically based on guest allowance -->
-                    </select>
-                </div>
-
-                <button type="submit" class="submit-btn">إرسال التأكيد</button>
-            </form>
-
-            <div id="rsvp-success" style="display:none; margin-top: 2rem;">
-                <div id="rsvp-emoji" style="font-size: 3rem; margin-bottom: 1rem;">💐</div>
-                <p id="rsvp-msg" style="font-family: 'El Messiri', sans-serif; font-size: 1.3rem; color: var(--text-light);">شكراً لتأكيد حضوركم</p>
-                <p id="rsvp-sub" style="color: var(--text-muted); margin-top: 0.5rem;">نتطلع لرؤيتكم في هذه الليلة السعيدة</p>
-            </div>
-
-            <!-- Already submitted message -->
-            <div id="rsvp-already" style="display:none; margin-top: 2rem;">
-                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1rem;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <p style="font-family: 'El Messiri', sans-serif; font-size: 1.3rem; color: var(--text-light);">تم تسجيل حضوركم مسبقاً</p>
-                <p style="color: var(--text-muted); margin-top: 0.5rem;">شكراً لكم، نتطلع لرؤيتكم</p>
             </div>
         </div>
     </section>
@@ -1291,6 +1311,16 @@
             const errorEl = document.getElementById('phone-error');
             const submitBtn = document.querySelector('.phone-submit');
             const normalized = normalizeNumerals(phone).replace(/[\s\-]/g, '');
+
+            if (!normalized.startsWith('0')) {
+                errorEl.textContent = 'الرجاء إدخال الرقم بالصفر في البداية، مثال: 05xxxxxxxx';
+                errorEl.style.display = 'block';
+                errorEl.classList.remove('shake');
+                void errorEl.offsetWidth;
+                errorEl.classList.add('shake');
+                return;
+            }
+
             const hashed = await hashPhone(normalized);
 
             // If cache not loaded yet, wait for it
@@ -1323,6 +1353,7 @@
                     showPage2();
                 }
             } else {
+                errorEl.textContent = 'عذراً، الرقم غير مسجل في قائمة الضيوف';
                 errorEl.style.display = 'block';
                 errorEl.classList.remove('shake');
                 void errorEl.offsetWidth;
@@ -1491,6 +1522,17 @@
             } catch (e) {
                 return [];
             }
+        }
+
+        function editRSVP() {
+            localStorage.removeItem('rsvp_submitted');
+            document.getElementById('rsvp-already').style.display = 'none';
+            document.getElementById('rsvp-success').style.display = 'none';
+            const form = document.querySelector('.rsvp-form');
+            form.style.display = '';
+            form.querySelector('.submit-btn').textContent = 'إرسال التأكيد';
+            form.querySelector('.submit-btn').disabled = false;
+            form.scrollIntoView({ behavior: 'smooth' });
         }
 
         (function checkAlreadySubmitted() {
