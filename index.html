@@ -1252,8 +1252,8 @@
                     الاتجاهات للموقع
                 </a>
 
-                <!-- Add to Google Calendar -->
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87&dates=20260716T170000Z/20260716T210000Z&details=%D9%86%D8%AA%D8%B4%D8%B1%D9%81+%D8%A8%D8%AF%D8%B9%D9%88%D8%AA%D9%83%D9%85+%D9%84%D8%AD%D8%B6%D9%88%D8%B1+%D8%B9%D9%82%D8%AF+%D9%82%D8%B1%D8%A7%D9%86+%D9%86%D9%88%D9%81+%26+%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87&location=%D9%85%D9%86%D8%AA%D8%AC%D8%B9+%D9%88%D9%87%D8%AC" target="_blank" rel="noopener" class="action-btn">
+                <!-- Add to Calendar (.ics) -->
+                <a href="#" onclick="downloadICS(); return false;" class="action-btn">
                     <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm-7-9h5v5h-5z"/></svg>
                     أضف للتقويم
                 </a>
@@ -1522,6 +1522,29 @@
             } catch (e) {
                 return [];
             }
+        }
+
+        function downloadICS() {
+            const ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//NoufAbdullah//Wedding//AR',
+                'BEGIN:VEVENT',
+                'DTSTART:20260716T200000',
+                'DTEND:20260717T000000',
+                'SUMMARY:عقد قران نوف & عبدالله',
+                'DESCRIPTION:نتشرف بدعوتكم لحضور عقد قران نوف & عبدالله',
+                'LOCATION:منتجع وهج - الدمام',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+            const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'wedding.ics';
+            a.click();
+            URL.revokeObjectURL(url);
         }
 
         function editRSVP() {
