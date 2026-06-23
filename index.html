@@ -789,6 +789,49 @@
             color: var(--text-muted);
         }
 
+        /* Progress Line */
+        .progress-bar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        @media (min-width: 521px) {
+            .progress-bar {
+                left: calc(50% - 260px);
+            }
+        }
+
+        .progress-bar.visible {
+            opacity: 1;
+        }
+
+        .progress-bar-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .progress-bar-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, var(--gold-light), #6B1E3A);
+            border-radius: 0 0 2px 2px;
+            transition: height 0.15s ease-out;
+            box-shadow: 0 0 6px rgba(212, 184, 150, 0.4);
+        }
+
         /* Hidden state for page 2 */
         #page2 {
             display: none;
@@ -988,8 +1031,7 @@
 
     <!-- Navigation (hidden until verified) -->
     <nav id="navbar" class="hidden">
-        <a href="#countdown">العد التنازلي</a>
-        <a href="#details">التفاصيل</a>
+        <a href="#countdown">التفاصيل</a>
         <a href="#rsvp">تأكيد الحضور</a>
         <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
     </nav>
@@ -1041,6 +1083,12 @@
             </div>
         </div>
     </section>
+
+    <!-- Progress Line (visible after login) -->
+    <div class="progress-bar" id="progress-nav">
+        <div class="progress-bar-track"></div>
+        <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
 
     <!-- ============ PAGE 2: Only visible after phone verification ============ -->
     <div id="page2">
@@ -1285,6 +1333,7 @@
 
         function showPage2() {
             document.getElementById('navbar').classList.remove('hidden');
+            document.getElementById('progress-nav').classList.add('visible');
 
             const page2 = document.getElementById('page2');
             page2.style.display = 'block';
@@ -1326,6 +1375,7 @@
         function logout() {
             currentGuest = null;
             document.getElementById('navbar').classList.add('hidden');
+            document.getElementById('progress-nav').classList.remove('visible');
             document.getElementById('page2').classList.remove('visible');
             document.getElementById('page2').style.display = 'none';
             document.getElementById('verify-section').style.display = '';
@@ -1376,6 +1426,18 @@
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
+
+        // Progress line
+        const progressFill = document.getElementById('progress-fill');
+
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+            progressFill.style.height = pct + '%';
+        }
+
+        window.addEventListener('scroll', updateProgress);
 
         // Scroll fade-in animations
         const fadeElements = document.querySelectorAll('.fade-in');
