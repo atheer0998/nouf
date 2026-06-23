@@ -52,6 +52,7 @@
 
         html {
             scroll-behavior: smooth;
+            background: #B4828C;
         }
 
         body {
@@ -62,15 +63,23 @@
             line-height: 1.5;
             opacity: 0;
             animation: pageFadeIn 0.8s ease 0.2s forwards;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 521px) {
+            body {
+                box-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
+            }
         }
 
         /* Navigation */
         nav {
             position: fixed;
             top: 0;
-            right: 0;
-            left: 0;
             z-index: 100;
+            width: 100%;
+            max-width: 520px;
             padding: 1rem 2rem;
             display: flex;
             justify-content: center;
@@ -885,8 +894,8 @@
         .loading-screen {
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
+            max-width: 520px;
             height: 100%;
             background: url('fullbg.jpeg') center center / cover no-repeat;
             display: flex;
