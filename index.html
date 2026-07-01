@@ -1377,11 +1377,14 @@
             document.getElementById('details-title').textContent = 'أهلاً ' + currentGuest.name;
             document.getElementById('details-subtitle').textContent = 'يسعدنا دعوتكم لمشاركتنا فرحتنا';
 
+            // allowedGuests from the sheet is the total headcount (the guest + companions),
+            // so companions the guest may bring = allowedGuests - 1.
+            const companionsAllowed = Math.max(0, currentGuest.allowedGuests - 1);
             const countGroup = document.getElementById('guest-count-group');
             const countSelect = document.getElementById('guest-count');
-            if (currentGuest.allowedGuests > 0) {
+            if (companionsAllowed > 0) {
                 countSelect.innerHTML = '';
-                for (let i = 0; i <= currentGuest.allowedGuests; i++) {
+                for (let i = 0; i <= companionsAllowed; i++) {
                     const opt = document.createElement('option');
                     opt.value = i;
                     opt.textContent = i === 0 ? 'بدون مرافقين' : i + (i === 1 ? ' شخص' : ' أشخاص');
@@ -1390,7 +1393,7 @@
             }
 
             document.getElementById('attending-yes').addEventListener('change', () => {
-                if (currentGuest.allowedGuests > 0) countGroup.style.display = 'block';
+                if (companionsAllowed > 0) countGroup.style.display = 'block';
             });
             document.getElementById('attending-no').addEventListener('change', () => {
                 countGroup.style.display = 'none';
