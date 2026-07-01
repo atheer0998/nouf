@@ -1312,7 +1312,7 @@
             const submitBtn = document.querySelector('.phone-submit');
             const normalized = normalizeNumerals(phone).replace(/[\s\-]/g, '');
 
-            if (!normalized.startsWith('0')) {
+            if (normalized.length === 9 && normalized.startsWith('5')) {
                 errorEl.textContent = 'الرجاء إدخال الرقم بالصفر في البداية، مثال: 05xxxxxxxx';
                 errorEl.style.display = 'block';
                 errorEl.classList.remove('shake');
