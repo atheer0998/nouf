@@ -1065,7 +1065,7 @@
 
             <p class="hero-invite">تتشرف</p>
             <p class="hero-host-name">عائشه بنت ضيف الله العتيبي</p>
-            <p class="hero-invite">بدعوتكم لحضور عقد قران</p>
+            <p class="hero-invite">لحضور حفلة ملكة ابنتها</p>
 
             <img src="element4.png" class="hero-dove" alt="">
 
@@ -1193,7 +1193,7 @@
             </form>
 
             <div id="rsvp-success" style="display:none; margin-top: 2rem;">
-                <div id="rsvp-emoji" style="font-size: 3rem; margin-bottom: 1rem;">💐</div>
+                <div id="rsvp-emoji" style="margin-bottom: 1rem;"><img src="element3.png" alt="" style="width: 70px; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));"></div>
                 <p id="rsvp-msg" style="font-family: 'El Messiri', sans-serif; font-size: 1.3rem; color: var(--text-light);">شكراً لتأكيد حضوركم</p>
                 <p id="rsvp-sub" style="color: var(--text-muted); margin-top: 0.5rem;">نتطلع لرؤيتكم في هذه الليلة السعيدة</p>
                 <button onclick="editRSVP()" style="margin-top: 1.5rem; padding: 0.7rem 2rem; background: none; border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; color: var(--text-light); font-family: 'El Messiri', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.3s;">تعديل الرد</button>
@@ -1230,13 +1230,13 @@
                 </div>
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    <span class="event-info-label">منتجع وهج</span>
+                    <span class="event-info-label">وهج ٢</span>
                     <span class="event-info-sub">الدمام</span>
                 </div>
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
                     <span class="event-info-label">الساعة</span>
-                    <span class="event-info-sub">٨:٠٠ مساءً</span>
+                    <span class="event-info-sub">٨:٣٠ مساءً</span>
                 </div>
             </div>
 
@@ -1533,11 +1533,11 @@
                 'VERSION:2.0',
                 'PRODID:-//NoufAbdullah//Wedding//AR',
                 'BEGIN:VEVENT',
-                'DTSTART:20260716T200000',
+                'DTSTART:20260716T203000',
                 'DTEND:20260717T000000',
                 'SUMMARY:عقد قران نوف & عبدالله',
                 'DESCRIPTION:نتشرف بدعوتكم لحضور عقد قران نوف & عبدالله',
-                'LOCATION:منتجع وهج - الدمام',
+                'LOCATION:وهج ٢ - الدمام',
                 'END:VEVENT',
                 'END:VCALENDAR'
             ].join('\r\n');
@@ -1601,13 +1601,14 @@
             localStorage.setItem('rsvp_submitted', 'true');
 
             const successEl = document.getElementById('rsvp-success');
+            const rsvpEmojiImg = '<img src="element3.png" alt="" style="width: 70px; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));">';
             if (attending === 'yes') {
-                document.getElementById('rsvp-emoji').textContent = '💐';
+                document.getElementById('rsvp-emoji').innerHTML = rsvpEmojiImg;
                 document.getElementById('rsvp-msg').textContent = 'شكراً لتأكيد حضوركم';
                 document.getElementById('rsvp-sub').textContent = 'نتطلع لرؤيتكم في هذه الليلة السعيدة';
                 createConfetti();
             } else {
-                document.getElementById('rsvp-emoji').textContent = '🤍';
+                document.getElementById('rsvp-emoji').innerHTML = rsvpEmojiImg;
                 document.getElementById('rsvp-msg').textContent = 'شكراً لردكم الكريم';
                 document.getElementById('rsvp-sub').textContent = 'نتمنى لكم كل الخير وسنفتقدكم';
             }
