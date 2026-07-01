@@ -1226,17 +1226,17 @@
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
                     <span class="event-info-label">الخميس</span>
-                    <span class="event-info-sub">١٦ . ٧ . ٢٠٢٦</span>
+                    <span class="event-info-sub" dir="ltr">16 . 7 . 2026</span>
                 </div>
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    <span class="event-info-label">وهج ٢</span>
+                    <span class="event-info-label">وهج 2</span>
                     <span class="event-info-sub">الدمام</span>
                 </div>
                 <div class="event-info-item">
                     <svg class="event-info-icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
                     <span class="event-info-label">الساعة</span>
-                    <span class="event-info-sub">٨:٣٠ مساءً</span>
+                    <span class="event-info-sub">8:30 مساءً</span>
                 </div>
             </div>
 
@@ -1401,6 +1401,15 @@
 
             document.getElementById('name').value = currentGuest.name;
 
+            if (localStorage.getItem('rsvp_submitted_' + currentGuest.phone)) {
+                document.querySelector('.rsvp-form').style.display = 'none';
+                document.getElementById('rsvp-already').style.display = 'block';
+            } else {
+                document.querySelector('.rsvp-form').style.display = '';
+                document.getElementById('rsvp-already').style.display = 'none';
+                document.getElementById('rsvp-success').style.display = 'none';
+            }
+
             setTimeout(() => {
                 document.getElementById('countdown').scrollIntoView({ behavior: 'smooth' });
             }, 300);
@@ -1554,7 +1563,7 @@
         }
 
         function editRSVP() {
-            localStorage.removeItem('rsvp_submitted');
+            if (currentGuest) localStorage.removeItem('rsvp_submitted_' + currentGuest.phone);
             document.getElementById('rsvp-already').style.display = 'none';
             document.getElementById('rsvp-success').style.display = 'none';
             const form = document.querySelector('.rsvp-form');
@@ -1563,14 +1572,6 @@
             form.querySelector('.submit-btn').disabled = false;
             form.scrollIntoView({ behavior: 'smooth' });
         }
-
-        (function checkAlreadySubmitted() {
-            if (localStorage.getItem('rsvp_submitted')) {
-                const form = document.querySelector('.rsvp-form');
-                if (form) form.style.display = 'none';
-                document.getElementById('rsvp-already').style.display = 'block';
-            }
-        })();
 
         async function handleRSVP(e) {
             e.preventDefault();
@@ -1601,7 +1602,7 @@
                 return;
             }
 
-            localStorage.setItem('rsvp_submitted', 'true');
+            if (currentGuest) localStorage.setItem('rsvp_submitted_' + currentGuest.phone, 'true');
 
             const successEl = document.getElementById('rsvp-success');
             const rsvpEmojiImg = '<img src="element3.png" alt="" style="width: 70px; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));">';
