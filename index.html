@@ -1310,7 +1310,10 @@
             const phone = document.getElementById('phone-input').value.trim();
             const errorEl = document.getElementById('phone-error');
             const submitBtn = document.querySelector('.phone-submit');
-            const normalized = normalizeNumerals(phone).replace(/[\s\-]/g, '');
+            let normalized = normalizeNumerals(phone).replace(/[\s\-]/g, '');
+
+            if (normalized.startsWith('966')) normalized = '0' + normalized.slice(3);
+            if (normalized.startsWith('965')) normalized = normalized.slice(3);
 
             if (normalized.length === 9 && normalized.startsWith('5')) {
                 errorEl.textContent = 'الرجاء إدخال الرقم بالصفر في البداية، مثال: 05xxxxxxxx';
